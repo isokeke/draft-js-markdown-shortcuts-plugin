@@ -90,33 +90,7 @@ const createMarkdownShortcutsPlugin = (config = { insertEmptyBlockOnReturnWithMo
       store.setEditorState = setEditorState;
       store.getEditorState = getEditorState;
     },
-    blockStyleFn(block) {
-      switch (block.getType()) {
-        case CHECKABLE_LIST_ITEM:
-          return CHECKABLE_LIST_ITEM;
-        default:
-          break;
-      }
-      return null;
-    },
-
-    blockRendererFn(block, { setEditorState, getEditorState }) {
-      switch (block.getType()) {
-        case CHECKABLE_LIST_ITEM: {
-          return {
-            component: CheckableListItem,
-            props: {
-              onChangeChecked: () => setEditorState(
-                CheckableListItemUtils.toggleChecked(getEditorState(), block)
-              ),
-              checked: !!block.getData().get('checked'),
-            },
-          };
-        }
-        default:
-          return null;
-      }
-    },
+    
     onTab(ev, { getEditorState, setEditorState }) {
       const editorState = getEditorState();
       const newEditorState = adjustBlockDepth(editorState, ev);
